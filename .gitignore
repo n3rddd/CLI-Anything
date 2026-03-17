@@ -15,6 +15,7 @@
 !/README.md
 !/assets/
 !/.claude-plugin/
+!/docs/
 
 # Step 3: Allow cli-anything-plugin, codex-skill, and skill_generation tests
 !/cli-anything-plugin/
@@ -99,4 +100,7 @@ assets/gen_typing_gif.py
 !README_CN.md
 !opencode-commands/
 !/qoder-plugin/
-
+!/notebooklm/
+/notebooklm/*
+/notebooklm/.*
+!/notebooklm/agent-harness/
