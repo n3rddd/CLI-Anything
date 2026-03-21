@@ -80,6 +80,8 @@ cli-anything-browser page back
 cli-anything-browser page forward
 ```
 
+**Note:** One-shot commands each start with a fresh session (no URL or working directory). For stateful workflows (like `cd` followed by `ls` without a path), use the REPL instead.
+
 ### JSON Output
 
 ```bash
@@ -101,25 +103,24 @@ cli-anything-browser --json fs ls /
 
 ### Daemon Mode (Persistent Connection)
 
-For faster interactive use, start daemon mode:
+For faster interactive use, start daemon mode within a REPL session:
 
 ```bash
-# Start daemon
-cli-anything-browser session daemon-start
+# Start REPL with daemon mode
+cli-anything-browser --daemon
+
+# Or start daemon within REPL
+session daemon-start
 
 # Run commands (uses persistent connection)
-cli-anything-browser fs ls /
-cli-anything-browser fs cd /main
+fs ls /
+fs cd /main
 
 # Stop daemon when done
-cli-anything-browser session daemon-stop
+session daemon-stop
 ```
 
-Or use the `--daemon` flag to auto-start:
-
-```bash
-cli-anything-browser --daemon fs ls /
-```
+**Note:** Daemon mode only works within a single running process (REPL or `--daemon` flag). State does not persist across separate CLI invocations.
 
 ### Interactive REPL
 
