@@ -87,6 +87,7 @@
 !/renderdoc/
 !/cloudcompare/
 !/openscreen/
+!/n8n/
 
 # Step 5: Inside each software dir, ignore everything (including dotfiles)
 /gimp/*
@@ -153,6 +154,8 @@
 /wiremock/.*
 /exa/*
 /exa/.*
+/n8n/*
+/n8n/.*
 
 # Step 6: ...except agent-harness/
 !/gimp/agent-harness/
@@ -190,6 +193,7 @@
 !/wiremock/
 !/wiremock/agent-harness/
 !/exa/agent-harness/
+!/n8n/agent-harness/
 
 # Step 7: Ignore build artifacts within allowed dirs
 **/__pycache__/
@@ -223,8 +227,5 @@ assets/gen_typing_gif.py
 /notebooklm/*
 /notebooklm/.*
 !/notebooklm/agent-harness/
-!/intelwatch/agent-harness/
 !/intelwatch/
-!/exa/
-!/n8n/
-!/n8n/agent-harness/
+!/intelwatch/agent-harness/
