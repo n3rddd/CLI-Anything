@@ -78,6 +78,9 @@
 !/novita/
 !/ollama/
 !/browser/
+!/seaclip/
+!/pm2/
+!/chromadb/
 !/musescore/
 !/krita/
 !/freecad/
@@ -131,6 +134,12 @@
 /ollama/.*
 /browser/*
 /browser/.*
+/seaclip/*
+/seaclip/.*
+/pm2/*
+/pm2/.*
+/chromadb/*
+/chromadb/.*
 /musescore/*
 /musescore/.*
 /krita/*
@@ -177,6 +186,9 @@
 !/novita/agent-harness/
 !/ollama/agent-harness/
 !/browser/agent-harness/
+!/seaclip/agent-harness/
+!/pm2/agent-harness/
+!/chromadb/agent-harness/
 !/musescore/agent-harness/
 !/krita/agent-harness/
 !/freecad/agent-harness/
