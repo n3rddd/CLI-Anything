@@ -31,14 +31,13 @@ cli-hub info gimp
 
 ## Live Catalog
 
-**URL**: [`https://clianything.cc/SKILL.txt`](https://clianything.cc/SKILL.txt)
+**URL**: [`https://reeceyang.sgp1.cdn.digitaloceanspaces.com/SKILL.md`](https://reeceyang.sgp1.cdn.digitaloceanspaces.com/SKILL.md)
 
 The catalog is auto-updated and provides:
 - Full list of available CLIs organized by category
 - One-line `cli-hub install` commands for each tool
 - Complete descriptions and usage patterns
 
-**Note**: The file is served as `.txt` but contains markdown formatting for easy parsing.
 
 ## What Can You Do?
 
@@ -83,6 +82,6 @@ cli-anything-kdenlive --json project create --name my-project
 
 ## More Info
 
-- Live Catalog: https://clianything.cc/SKILL.txt
+- Live Catalog: https://reeceyang.sgp1.cdn.digitaloceanspaces.com/SKILL.md
 - Web Hub: https://clianything.cc
 - Repository: https://github.com/HKUDS/CLI-Anything

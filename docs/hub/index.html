@@ -236,6 +236,14 @@
     .empower-prompt strong { color: var(--text-secondary); font-weight: 600; }
     .empower-prompt em { color: var(--accent); font-style: italic; }
 
+    .empower-available {
+      margin: 0.25rem 0 0.5rem;
+      font-size: 0.78rem;
+      color: var(--text-tertiary);
+    }
+    .empower-available a { color: var(--accent); text-decoration: none; }
+    .empower-available a:hover { text-decoration: underline; }
+
     .empower-card.empower-self::before { background: var(--green); }
     .empower-card.empower-self h3 span { color: var(--green); }
     .empower-self .cmd-grid {
@@ -795,7 +803,7 @@
   <nav class="nav">
     <a class="nav-brand" href="#">CLI-Hub</a>
     <div class="nav-links">
-      <a class="nav-link" href="./SKILL.txt" target="_blank">
+      <a class="nav-link" href="https://reeceyang.sgp1.cdn.digitaloceanspaces.com/SKILL.md" target="_blank">
         SKILL
       </a>
       <a class="nav-link" href="https://github.com/HKUDS/CLI-Anything" target="_blank">
@@ -820,6 +828,7 @@
     <div class="empower-row">
     <div class="empower-card">
       <h3>Empower your agents &mdash; <span>install in one command</span></h3>
+      <p class="empower-available">Available on: <a href="https://clawhub.ai/yuh-yang/cli-anything-hub" target="_blank">ClawHub</a>, <a href="https://www.skillhub.club/web/skills/itsyuhao-cli-anything-hub" target="_blank">SkillHub</a>, <a href="https://skillhub.cn/skills/cli-hub-meta-skill" target="_blank">SkillHub.cn</a></p>
       <div class="install-row">
         <span class="chip-label">OpenClaw</span>
         <code>openclaw skills install cli-anything-hub</code>
@@ -853,7 +862,7 @@
     </div>
 
     <div class="hero-actions">
-      <a class="btn-primary" href="./SKILL.txt" target="_blank">Agent SKILL (SKILL.txt)</a>
+      <a class="btn-primary" href="https://reeceyang.sgp1.cdn.digitaloceanspaces.com/SKILL.md" target="_blank">Agent SKILL (SKILL.md)</a>
       <a class="btn-secondary" href="https://github.com/HKUDS/CLI-Anything" target="_blank">
         <svg viewBox="0 0 98 96" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6C29.304 70.25 17.9 66.013 17.9 47.02c0-5.52 1.94-10.046 5.127-13.58-.486-1.302-2.264-6.437.486-13.34 0 0 4.206-1.302 13.59 5.216 3.963-1.14 8.17-1.628 12.34-1.628 4.17 0 8.376.568 12.34 1.628 9.384-6.518 13.59-5.216 13.59-5.216 2.75 6.903.972 12.038.486 13.34 3.268 3.534 5.127 8.06 5.127 13.58 0 19.074-11.485 23.15-22.328 24.29 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"/></svg>
         Star on GitHub
@@ -866,7 +875,7 @@
       </a>
     </div>
 
-    <p class="hero-hint">Feed <a href="./SKILL.txt" target="_blank">SKILL.txt</a> to your AI agent for autonomous CLI discovery &amp; installation</p>
+    <p class="hero-hint">Feed <a href="https://reeceyang.sgp1.cdn.digitaloceanspaces.com/SKILL.md" target="_blank">SKILL.md</a> to your AI agent for autonomous CLI discovery &amp; installation</p>
 
     <p class="hero-cta">We welcome contributions for <em>any</em> application &mdash; desktop apps, dev tools, cloud services, SaaS APIs, creative suites, and beyond. If it has a GUI or an API, it deserves an agent-native CLI. Read the <a href="https://github.com/HKUDS/CLI-Anything/blob/main/CONTRIBUTING.md" target="_blank">Contributing Guide</a>, use the <a href="https://github.com/HKUDS/CLI-Anything/blob/main/.github/PULL_REQUEST_TEMPLATE.md" target="_blank">PR Template</a>, and bring it to the hub!</p>
 
