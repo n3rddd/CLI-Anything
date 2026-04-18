@@ -6,7 +6,9 @@ from __future__ import annotations
 
 import ctypes
 import os
+import re
 import shlex
+import tempfile
 from pathlib import Path
 
 from cli_anything.unrealinsights.utils import unrealinsights_backend as backend
@@ -59,6 +61,32 @@ def _legacy_filename_arg(output_path: str) -> str:
     return str(Path(short_parent) / path.name)
 
 
+def _modern_filename_arg(output_path: str) -> str:
+    """Build a filename token compatible with modern UnrealInsights builds."""
+    path = Path(output_path).expanduser().resolve()
+    path_str = str(path)
+    if os.name != "nt":
+        return _quote(path_str)
+    if " " not in path_str:
+        return path_str
+
+    short_path = _windows_short_path(path)
+    if short_path:
+        return short_path
+
+    raise RuntimeError(
+        "UnrealInsights export requires a path without spaces or a resolvable short path on Windows: "
+        f"{path}"
+    )
+
+
+def _filename_arg(output_path: str, insights_version: str | None = None) -> str:
+    output_abs = str(Path(output_path).expanduser().resolve())
+    if _is_legacy_unrealinsights(insights_version):
+        return _legacy_filename_arg(output_abs)
+    return _modern_filename_arg(output_abs)
+
+
 def build_export_exec_command(
     exporter: str,
     output_path: str,
@@ -77,10 +105,7 @@ def build_export_exec_command(
         raise RuntimeError(f"Unsupported exporter: {exporter}")
 
     output_abs = str(Path(output_path).expanduser().resolve())
-    if _is_legacy_unrealinsights(insights_version):
-        filename_token = _legacy_filename_arg(output_abs)
-    else:
-        filename_token = _quote(output_abs)
+    filename_token = _filename_arg(output_abs, insights_version=insights_version)
 
     parts = [EXPORTER_COMMANDS[exporter], filename_token]
 
@@ -105,6 +130,25 @@ def build_export_exec_command(
 def build_rsp_exec_command(rsp_path: str) -> str:
     """Build the response-file execution token."""
     return f"@={Path(rsp_path).expanduser().resolve()}"
+
+
+def _normalize_rsp_line(line: str, insights_version: str | None = None) -> tuple[str, str | None]:
+    stripped = line.strip()
+    if not stripped or stripped.startswith("#"):
+        return line, None
+
+    match = re.match(r'^(?P<indent>\s*)(?P<command>\S+)\s+(?P<output>"[^"]*"|\S+)(?P<rest>.*)$', line)
+    if not match:
+        return line, None
+
+    command = match.group("command")
+    if command not in EXPORTER_COMMANDS.values():
+        return line, None
+
+    output_path = match.group("output").strip('"')
+    normalized_output = _filename_arg(output_path, insights_version=insights_version)
+    normalized_line = f"{match.group('indent')}{command} {normalized_output}{match.group('rest')}"
+    return normalized_line, str(Path(output_path).expanduser().resolve())
 
 
 def _path_contains_placeholders(path: Path) -> bool:
@@ -245,15 +289,40 @@ def execute_response_file(
     trace_path: str,
     rsp_path: str,
     *,
+    insights_version: str | None = None,
     log_path: str | None = None,
 ) -> dict[str, object]:
     """Execute a response file batch export."""
     rsp_abs = str(Path(rsp_path).expanduser().resolve())
     resolved_log_path = log_path or default_log_path(rsp_abs)
-    return _execute_insights(
-        insights_exe,
-        trace_path,
-        exec_command=build_rsp_exec_command(rsp_abs),
-        expected_outputs=expected_outputs_from_rsp(rsp_abs),
-        log_path=resolved_log_path,
-    )
+    lines = Path(rsp_abs).read_text(encoding="utf-8", errors="replace").splitlines()
+
+    normalized_lines: list[str] = []
+    expected_outputs: list[str] = []
+    for line in lines:
+        normalized_line, normalized_output = _normalize_rsp_line(line, insights_version=insights_version)
+        normalized_lines.append(normalized_line)
+        if normalized_output:
+            expected_outputs.append(normalized_output)
+
+    if not expected_outputs:
+        expected_outputs = expected_outputs_from_rsp(rsp_abs)
+
+    temp_rsp_path = None
+    try:
+        with tempfile.NamedTemporaryFile("w", suffix=".rsp", delete=False, encoding="utf-8", newline="\n") as handle:
+            temp_rsp_path = handle.name
+            handle.write("\n".join(normalized_lines))
+        return _execute_insights(
+            insights_exe,
+            trace_path,
+            exec_command=build_rsp_exec_command(temp_rsp_path),
+            expected_outputs=expected_outputs,
+            log_path=resolved_log_path,
+        )
+    finally:
+        if temp_rsp_path:
+            try:
+                Path(temp_rsp_path).unlink()
+            except OSError:
+                pass

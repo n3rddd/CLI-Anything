@@ -645,7 +645,12 @@ def batch_run_rsp(ctx, rsp_path):
     try:
         trace_path = _require_trace(ctx)
         insights = _resolve_insights(ctx)
-        data = execute_response_file(insights["path"], trace_path, rsp_path)
+        data = execute_response_file(
+            insights["path"],
+            trace_path,
+            rsp_path,
+            insights_version=insights.get("version"),
+        )
         _output(ctx, data, _human_export_result)
     except Exception as exc:
         _handle_exc(ctx, exc)

@@ -5,6 +5,7 @@ Unit tests for Unreal Insights harness modules.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from unittest.mock import patch
 
@@ -373,6 +374,19 @@ class TestExportCore:
         command = build_rsp_exec_command(str(tmp_path / "exports.rsp"))
         assert command.startswith("@=")
 
+    @pytest.mark.skipif(os.name != "nt", reason="Windows quoting behavior")
+    def test_normalize_rsp_line_modern_windows_avoids_nested_quotes(self, tmp_path):
+        from cli_anything.unrealinsights.core.export import _normalize_rsp_line
+
+        line, output = _normalize_rsp_line(
+            f'TimingInsights.ExportThreads "{tmp_path / "threads.csv"}"',
+            insights_version="5.5.4",
+        )
+        resolved = str((tmp_path / "threads.csv").resolve())
+        assert f'"{resolved}"' not in line
+        assert resolved in line
+        assert output == resolved
+
     def test_build_export_exec_command_legacy_53_unquoted_filename(self, tmp_path):
         from cli_anything.unrealinsights.core.export import build_export_exec_command
 
@@ -383,6 +397,19 @@ class TestExportCore:
         )
         assert '"{}"'.format(str((tmp_path / "threads.csv").resolve())) not in command
         assert str((tmp_path / "threads.csv").resolve()) in command
+
+    @pytest.mark.skipif(os.name != "nt", reason="Windows quoting behavior")
+    def test_build_export_exec_command_modern_windows_avoids_nested_quotes(self, tmp_path):
+        from cli_anything.unrealinsights.core.export import build_export_exec_command
+
+        command = build_export_exec_command(
+            "threads",
+            str(tmp_path / "threads.csv"),
+            insights_version="5.5.4",
+        )
+        resolved = str((tmp_path / "threads.csv").resolve())
+        assert f'"{resolved}"' not in command
+        assert resolved in command
 
     def test_expected_outputs_from_rsp(self, tmp_path):
         from cli_anything.unrealinsights.core.export import expected_outputs_from_rsp
