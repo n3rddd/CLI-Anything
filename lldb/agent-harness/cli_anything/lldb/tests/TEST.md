@@ -41,13 +41,13 @@
 ### Prerequisites
 - LLDB installed and available in PATH
 - A C compiler (`clang`, `gcc`, or `cc`) so the tests can build a small debug helper
-- optional `LLDB_TEST_CORE` for the core-load negative-path check
+- optional `LLDB_TEST_CORE` to override the placeholder file used for the core-load negative-path check
 
 ### Workflows to validate
 - Create target in one command, read target info in a later command via the same persisted session
 - Set breakpoint -> launch -> inspect threads/backtrace/locals -> evaluate expression -> read/find memory -> step -> continue
 - Attach to a live process, then close the LLDB session without killing the attached process
-- Load core dump negative path (optional; controlled by `LLDB_TEST_CORE`)
+- Load core dump negative path without a target selected, using either a provided `LLDB_TEST_CORE` path or an auto-generated placeholder file
 
 ### Output validation
 - All command responses parse as valid JSON in `--json` mode
@@ -97,13 +97,13 @@ python -m pytest cli_anything/lldb/tests -q
 ### Result summary
 
 - `test_core.py`: 18 passed
-- `test_full_e2e.py`: 3 passed, 1 skipped
-- combined: 21 passed, 1 skipped
-- Skip reason: `LLDB_TEST_CORE` was not provided, so the optional core-dump scenario was not exercised
+- `test_full_e2e.py`: 4 passed
+- combined: 22 passed
 
 ### Notes
 
 - Verified the installed `cli-anything-lldb` entrypoint on Windows after editable install
+- The core-load negative-path test now auto-generates a placeholder file, so no extra env var is required for the default E2E suite
 - Fixed REPL fallback behavior for non-interactive subprocess execution on Windows
 - Fixed Windows REPL command parsing so quoted paths and inherited `--json` mode work correctly
 - Added a persistent background LLDB session so non-REPL commands can share debugger state

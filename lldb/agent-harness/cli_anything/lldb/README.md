@@ -97,4 +97,4 @@ pytest cli_anything/lldb/tests/test_full_e2e.py -v
 
 E2E tests require:
 - a working C compiler (`clang`, `gcc`, or `cc`) so the tests can build a small debug helper
-- optional `LLDB_TEST_CORE` for core-load scenario
+- no extra env vars for the default suite; `LLDB_TEST_CORE` is optional if you want to point the negative-path core-load check at a specific local file

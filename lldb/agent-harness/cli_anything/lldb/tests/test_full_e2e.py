@@ -18,8 +18,7 @@ from pathlib import Path
 import pytest
 
 HARNESS_ROOT = str(Path(__file__).resolve().parents[3])
-TEST_CORE = os.environ.get("LLDB_TEST_CORE", "")
-HAS_CORE = os.path.isfile(TEST_CORE) if TEST_CORE else False
+TEST_CORE = os.environ.get("LLDB_TEST_CORE", "").strip()
 
 HELPER_SOURCE = r"""
 #include <stdio.h>
@@ -67,7 +66,6 @@ except Exception:
     HAS_LLDB_MODULE = False
 
 skip_no_lldb = pytest.mark.skipif(not HAS_LLDB_MODULE, reason="lldb module not importable")
-skip_no_core = pytest.mark.skipif(not HAS_CORE, reason="LLDB_TEST_CORE not set or file missing")
 
 
 def _find_compiler() -> str | None:
@@ -102,6 +100,16 @@ def lldb_test_exe(tmp_path_factory) -> str:
 @pytest.fixture()
 def session_file(tmp_path) -> Path:
     return tmp_path / "lldb-session.json"
+
+
+@pytest.fixture()
+def core_file(tmp_path) -> str:
+    if TEST_CORE and os.path.isfile(TEST_CORE):
+        return TEST_CORE
+
+    placeholder = tmp_path / "placeholder.core"
+    placeholder.write_bytes(b"lldb-core-placeholder")
+    return str(placeholder)
 
 
 def _run_cli(*args, session_file: Path, input_text: str | None = None, timeout: int = 90) -> dict:
@@ -226,9 +234,8 @@ class TestLLDBE2E:
 
 
 @skip_no_lldb
-@skip_no_core
 class TestCoreE2E:
-    def test_core_load_requires_target(self, session_file: Path):
+    def test_core_load_requires_target(self, session_file: Path, core_file: str):
         cmd = [
             sys.executable,
             "-m",
@@ -239,7 +246,7 @@ class TestCoreE2E:
             "core",
             "load",
             "--path",
-            TEST_CORE,
+            core_file,
         ]
         result = subprocess.run(cmd, capture_output=True, text=True, cwd=HARNESS_ROOT)
         assert result.returncode == 1
