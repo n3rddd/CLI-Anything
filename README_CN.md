@@ -89,11 +89,12 @@ CLI-Anything 以 Claude Code 插件市场的形式托管在 GitHub 上。
 **第三步：一行命令生成 CLI**
 
 ```bash
-# /cli-anything:cli-anything <软件路径或仓库地址>
+# /cli-anything <软件路径或仓库地址>
 # 为 GIMP 生成完整的 CLI（7 个阶段全自动）
-/cli-anything:cli-anything ./gimp
+/cli-anything ./gimp
 
-# 兼容写法：也可以使用 /cli-anything ./gimp
+# 兼容写法（旧版本 Claude Code 可重试）
+# /cli-anything:cli-anything ./gimp
 ```
 
 Claude Code 不同版本的命令兼容说明：
