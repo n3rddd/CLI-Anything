@@ -78,7 +78,7 @@ class TestOutputAndErrors:
 
 class TestBackendDiscovery:
     def test_default_windows_install_dirs_prefers_higher_version(self):
-        with patch("cli_anything.nsight_graphics.utils.nsight_graphics_backend._fixed_windows_drive_roots", return_value=["C:", "D:"]):
+        with patch("cli_anything.nsight_graphics.utils.backend.discovery._fixed_windows_drive_roots", return_value=["C:", "D:"]):
             result = backend._default_windows_install_dirs(
                 lambda pattern: {
                     "C:/Program Files/NVIDIA Corporation/Nsight Graphics */host/windows-desktop-nomad-x64": [
@@ -132,7 +132,7 @@ class TestBackendDiscovery:
         (install_dir / "ngfx.exe").write_text("", encoding="utf-8")
         (install_dir / "ngfx-ui.exe").write_text("", encoding="utf-8")
 
-        with patch("cli_anything.nsight_graphics.utils.nsight_graphics_backend._read_registry_installations", return_value=[]):
+        with patch("cli_anything.nsight_graphics.utils.backend.discovery._read_registry_installations", return_value=[]):
             result = backend.list_installations(
                 env={},
                 nsight_path=str(install_dir),
@@ -157,7 +157,7 @@ class TestBackendDiscovery:
                 "registry_key": r"HKLM\SOFTWARE\...\{ABC}",
             }
         ]
-        with patch("cli_anything.nsight_graphics.utils.nsight_graphics_backend._read_registry_installations", return_value=registry_entries):
+        with patch("cli_anything.nsight_graphics.utils.backend.discovery._read_registry_installations", return_value=registry_entries):
             result = backend.list_installations(
                 env={},
                 which=lambda _: None,
@@ -188,7 +188,7 @@ class TestBackendDiscovery:
                 "registry_key": r"HKLM\SOFTWARE\...\{DEF}",
             }
         ]
-        with patch("cli_anything.nsight_graphics.utils.nsight_graphics_backend._read_registry_installations", return_value=registry_entries):
+        with patch("cli_anything.nsight_graphics.utils.backend.discovery._read_registry_installations", return_value=registry_entries):
             result = backend.list_installations(
                 env={},
                 nsight_path=str(install_dir),
@@ -211,8 +211,8 @@ class TestBackendDiscovery:
         (c_dir / "ngfx.exe").write_text("", encoding="utf-8")
         (d_dir / "ngfx.exe").write_text("", encoding="utf-8")
 
-        with patch("cli_anything.nsight_graphics.utils.nsight_graphics_backend._fixed_windows_drive_roots", return_value=["C:", "D:"]), \
-             patch("cli_anything.nsight_graphics.utils.nsight_graphics_backend._read_registry_installations", return_value=[]):
+        with patch("cli_anything.nsight_graphics.utils.backend.discovery._fixed_windows_drive_roots", return_value=["C:", "D:"]), \
+             patch("cli_anything.nsight_graphics.utils.backend.discovery._read_registry_installations", return_value=[]):
             result = backend.list_installations(
                 env={},
                 which=lambda _: None,
@@ -288,7 +288,7 @@ class TestCommandBuilders:
         assert "--capture-countdown-timer" in command
         assert command[command.index("--capture-countdown-timer") + 1] == "3000"
 
-    @patch("cli_anything.nsight_graphics.utils.nsight_graphics_backend.subprocess.run")
+    @patch("cli_anything.nsight_graphics.utils.backend.execution.subprocess.run")
     def test_run_command_suppresses_graphics_capture_suggestion_dialog(self, run_mock):
         run_mock.return_value = type("Result", (), {"returncode": 0, "stdout": "", "stderr": ""})()
         backend.run_command(["C:/Nsight/ngfx.exe", "--help"])
