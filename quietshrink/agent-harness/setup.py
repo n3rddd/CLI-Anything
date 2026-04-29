@@ -4,7 +4,7 @@
 from setuptools import setup, find_namespace_packages
 from pathlib import Path
 
-readme = Path(__file__).parent / "README.md"
+readme = Path(__file__).parent / "QUIETSHRINK.md"
 long_description = readme.read_text(encoding="utf-8") if readme.exists() else ""
 
 setup(
@@ -45,6 +45,9 @@ setup(
     },
     package_data={
         "cli_anything.quietshrink": ["skills/*.md"],
+    },
+    exclude_package_data={
+        "cli_anything.quietshrink": ["tests/*"],
     },
     include_package_data=True,
     zip_safe=False,
