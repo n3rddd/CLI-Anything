@@ -84,6 +84,7 @@
 !/unrealinsights/
 !/nsight-graphics/
 !/lldb/
+!/quietshrink/
 
 # Step 5: Inside each software dir, ignore everything (including dotfiles)
 /gimp/*
@@ -172,6 +173,8 @@
 /nsight-graphics/.*
 /lldb/*
 /lldb/.*
+/quietshrink/*
+/quietshrink/.*
 
 # Step 6: ...except agent-harness/
 !/gimp/agent-harness/
@@ -223,6 +226,7 @@
 !/unrealinsights/agent-harness/
 !/nsight-graphics/agent-harness/
 !/lldb/agent-harness/
+!/quietshrink/agent-harness/
 
 # Step 7: Ignore build artifacts within allowed dirs
 **/__pycache__/
