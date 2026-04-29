@@ -7,15 +7,15 @@ CLI-Anything: Bridging the Gap Between AI Agents and the World's Software</stron
 
 **🌐 [CLI-Hub](https://hkuds.github.io/CLI-Anything/)**: `pip install cli-anything-hub` then `cli-hub install <name>` — browse, install, and manage all community-built CLIs. Want to add your own? [Open a PR](https://github.com/HKUDS/CLI-Anything/blob/main/CONTRIBUTING.md) — the hub updates instantly.
 
-**🎬 [See Demos](#-real-world-demos)**: Watch AI agents use generated CLIs to produce real artifacts — diagrams, gameplay, subtitles, and more.
+**🎬 [See Demos](#-real-world-demos)**: Watch AI agents use generated CLIs plus preview, live preview, and trajectory loops to produce real artifacts — CAD builds, 3D scenes, diagrams, gameplay, subtitles, and more.
 
 **🙋 [Become a Contributor, or Request a CLI]**: [Join us](https://github.com/HKUDS/CLI-Anything/issues/new?template=contributor-signup.yml)! Sign up to build a new CLI harness — once reviewed and merged, you'll gain access as one of our community contributors! Wish CLI-Anything supported a specific software or service? Submit a [wishlist request](https://github.com/HKUDS/CLI-Anything/issues/new?template=cli-wishlist.yml)!
 
 <p align="center">
   <a href="#-quick-start"><img src="https://img.shields.io/badge/Quick_Start-5_min-blue?style=for-the-badge" alt="Quick Start"></a>
   <a href="https://hkuds.github.io/CLI-Anything/"><img src="https://img.shields.io/badge/CLI_Hub-Browse_%26_Install-ff69b4?style=for-the-badge" alt="CLI Hub"></a>
-  <a href="#-demonstrations"><img src="https://img.shields.io/badge/Demos-16_Apps-green?style=for-the-badge" alt="Demos"></a>
-  <a href="#-test-results"><img src="https://img.shields.io/badge/Tests-2%2C130_Passing-brightgreen?style=for-the-badge" alt="Tests"></a>
+  <a href="#-demonstrations"><img src="https://img.shields.io/badge/Demos-18_Apps-green?style=for-the-badge" alt="Demos"></a>
+  <a href="#-test-results"><img src="https://img.shields.io/badge/Tests-2%2C269_Passing-brightgreen?style=for-the-badge" alt="Tests"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"></a>
 </p>
 
@@ -50,6 +50,8 @@ CLI-Anything: Bridging the Gap Between AI Agents and the World's Software</stron
 - **2026-04-17** 🌐 **CLI-Hub** received another install UX pass — public registry metadata and skill coverage were tightened, visit counting was corrected, and the web hub was further refined. 🧪 **Shotcut** render output duration was fixed (#92). 📝 **SKILL** contribution paths were corrected for the new docs flow (#224), and the skill generator now safely handles empty intros (#203).
 
 - **2026-04-16** 🗺️ **QGIS CLI** merged (#207) — a full GIS / map authoring harness landed. 🧬 **UniMol Tools CLI** merged (#219) for molecular modeling workflows. 🌐 **CLI-Hub** also added more public CLIs, including **py4csr**, refreshed its generated meta-skill, corrected SKILL contribution docs, and fixed `apt-get` package extraction in skill generation (#204).
+
+- **2026-04-16** 📈 **Unreal Insights CLI** expanded — added background capture session control (`capture start/status/snapshot/stop`), engine-root-matched `UnrealInsights.exe` resolution/build flows, and refreshed docs/tests for the new orchestration workflow.
 
 - **2026-04-15** 🌐 **CLI-Hub** updated to **v0.2.0** — the PyPI package now supports public CLIs from multiple install sources (`pip`, `npm`, `brew`, bundled/system tools), backed by a new `public_registry.json`. The Hub frontend was redesigned with separate **CLI-Anything CLIs** and **Public CLIs** decks, and live end-to-end checks now cover real install, update, and uninstall flows across both pip and npm packages.
 
@@ -188,7 +190,20 @@ That's it. The plugin is now available in your Claude Code session.
 /cli-anything ./gimp
 ```
 
-Older Claude Code 2.x releases also accepted `/cli-anything:cli-anything`; auxiliary commands still use the `:subcommand` form (e.g. `/cli-anything:refine`).
+Command compatibility across Claude Code versions:
+- Use `/cli-anything` as the primary entrypoint.
+- On older builds where `/cli-anything` isn't recognized **after confirming the plugin is installed and loaded**, try the legacy entry form `/cli-anything:cli-anything`.
+- Auxiliary commands keep the `:subcommand` form (e.g. `/cli-anything:refine`).
+
+If you see `Unknown skill: cli-anything`, focus on plugin install/load first (both entry forms reference the same skill, so swapping forms won't help):
+1. Reload plugin commands: `/reload-plugins`
+2. Verify the plugin is loaded: `/help cli-anything` (CLI-Anything help/commands should appear)
+3. Reinstall from marketplace if needed:
+   - `/plugin marketplace add HKUDS/CLI-Anything`
+   - `/plugin install cli-anything`
+4. After confirming the plugin is available, retry the entry command:
+   - Preferred: `/cli-anything ./gimp`
+   - Older builds only: `/cli-anything:cli-anything ./gimp`
 
 This runs the full pipeline:
 1. 🔍 **Analyze** — Scans source code, maps GUI actions to APIs
@@ -594,7 +609,7 @@ AI agents are great at reasoning but terrible at using real professional softwar
 | 💸 "UI automation breaks constantly" | No screenshots, no clicking, no RPA fragility. Pure command-line reliability with structured interfaces |
 | 📊 "Agents need structured data" | Built-in JSON output for seamless agent consumption + human-readable formats for debugging |
 | 🔧 "Custom integrations are expensive" | One Claude plugin auto-generates CLIs for ANY codebase through proven 7-phase pipeline |
-| ⚡ "Prototype vs Production gap" | 1,839+ tests with real software validation. Battle-tested across 16 major applications |
+| ⚡ "Prototype vs Production gap" | 2,280+ tests with real software validation. Battle-tested across 18 major applications |
 
 ---
 
@@ -693,6 +708,34 @@ SKILL.md files are auto-generated during Phase 6.5 of the pipeline using `skill_
 
 AI agents using generated CLIs to produce complete, useful artifacts — no GUI needed.
 
+### FreeCAD &mdash; Curiosity Rover via Preview, Live Preview, and Trajectory
+
+> **Harness:** `cli-anything-freecad` | **Preview Stack:** `preview` + `preview live` + `trajectory.json` | **Artifact:** Agent-built Curiosity-style rover
+
+An agent incrementally assembles a Curiosity-inspired rover while publishing real FreeCAD preview bundles, refreshing a live preview session, and recording command-to-preview history for later replay. The resulting demo shows the artifact evolving step by step before the final showcase.
+
+<p align="center">
+  <img src="assets/demos/freecad-curiosity-preview-trajectory.gif" alt="FreeCAD Curiosity rover demo driven by preview, live preview, and trajectory history" width="860" />
+</p>
+
+<p align="center">
+  <sub>README GIF generated from the full local demo video with a speed-adjusted, high-quality ffmpeg palette workflow.</sub>
+</p>
+
+### Blender &mdash; Orbital Relay Drone via Preview, Live Preview, and Trajectory
+
+> **Harness:** `cli-anything-blender` | **Preview Stack:** `preview` + `preview live` + `trajectory.json` | **Artifact:** Agent-built orbital relay drone
+
+An agent uses the Blender harness to grow a hard-surface orbital relay drone under a real preview loop: each stage pushes new render-backed bundles, the live session tracks the current head, and the trajectory ties every command to the matching visual state. The demo finishes with the completed scene ready for a polished turntable.
+
+<p align="center">
+  <img src="assets/demos/blender-orbital-relay-drone-preview-trajectory.gif" alt="Blender orbital relay drone demo driven by preview, live preview, and trajectory history" width="860" />
+</p>
+
+<p align="center">
+  <sub>README GIF generated from the full local demo video with a speed-adjusted, high-quality ffmpeg palette workflow.</sub>
+</p>
+
 ### Draw.io &mdash; HTTPS Handshake Diagram
 
 > **Harness:** `cli-anything-drawio` | **Time:** ~4 min | **Artifact:** `.drawio` + `.png`
@@ -700,13 +743,13 @@ AI agents using generated CLIs to produce complete, useful artifacts — no GUI 
 An agent creates a full HTTPS connection lifecycle diagram from scratch — TCP three-way handshake, TLS negotiation, encrypted data exchange, and TCP four-way termination — entirely through CLI commands.
 
 <p align="center">
-  <img src="examples/drawio/drawio_demo.gif" alt="Draw.io CLI demo: building an HTTPS handshake diagram" width="720" />
+  <img src="assets/demos/drawio-demo.gif" alt="Draw.io CLI demo: building an HTTPS handshake diagram" width="720" />
 </p>
 
 <details>
 <summary>Final artifact</summary>
 <p align="center">
-  <img src="examples/drawio/https_handshake.png" alt="HTTPS handshake sequence diagram" width="600" />
+  <img src="assets/demos/drawio-https-handshake.png" alt="HTTPS handshake sequence diagram" width="600" />
 </p>
 </details>
 
@@ -719,7 +762,7 @@ An agent creates a full HTTPS connection lifecycle diagram from scratch — TCP 
 An agent plays through a Slay the Spire II run using the CLI harness — reading game state, selecting cards, choosing paths, and making strategic decisions in real-time.
 
 <p align="center">
-  <img src="examples/slay_the_spire_ii/example_preview.gif" alt="Slay the Spire II CLI gameplay demo" width="720" />
+  <img src="assets/demos/slay-the-spire-ii-gameplay.gif" alt="Slay the Spire II CLI gameplay demo" width="720" />
 </p>
 
 *Contributed by [@TianyuFan0504](https://github.com/TianyuFan0504)*
@@ -736,8 +779,8 @@ An agent uses the VideoCaptioner CLI to automatically generate and overlay style
 <td align="center"><strong>Sub B</strong></td>
 </tr>
 <tr>
-<td><img src="examples/videocaptioner/videocaptioner_before.png" alt="Video frame before captioning" width="380" /></td>
-<td><img src="examples/videocaptioner/videocaptioner_after.png" alt="Video frame after captioning" width="380" /></td>
+<td><img src="assets/demos/videocaptioner-before.png" alt="Video frame before captioning" width="380" /></td>
+<td><img src="assets/demos/videocaptioner-after.png" alt="Video frame after captioning" width="380" /></td>
 </tr>
 </table>
 
@@ -753,7 +796,7 @@ An agent uses the VideoCaptioner CLI to automatically generate and overlay style
 CLI-Anything works on any software with a codebase — no domain restrictions or architectural limitations.
 
 ### 🏭 Professional-Grade Testing
-Tested across 16 diverse, complex applications spanning creative, productivity, communication, diagramming, AI image generation, AI content generation, network ad blocking, and local LLM inference domains previously inaccessible to AI agents.
+Tested across 18 diverse, complex applications spanning creative, productivity, communication, diagramming, AI image generation, AI content generation, network ad blocking, local LLM inference, native debugging, and graphics profiling domains previously inaccessible to AI agents.
 
 ### 🎨 Diverse Domain Coverage
 From creative workflows (image editing, 3D modeling, vector graphics) to production tools (audio, office, live streaming, video editing).
@@ -966,11 +1009,32 @@ Each application received complete, production-ready CLI interfaces — not demo
 <td align="center">✅ 24</td>
 </tr>
 <tr>
+<td align="center"><strong>🐞 <a href="lldb/agent-harness/">LLDB</a></strong></td>
+<td>Native Debugging</td>
+<td><code>cli-anything-lldb</code></td>
+<td>LLDB Python API</td>
+<td align="center">✅ 27</td>
+</tr>
+<tr>
+<td align="center"><strong>🟩 <a href="nsight-graphics/agent-harness/">Nsight Graphics CLI</a></strong></td>
+<td>GPU Debugging &amp; Profiling</td>
+<td><code>cli-anything-nsight-graphics</code></td>
+<td>Official ngfx / ngfx-capture orchestration + GPU Trace summary + replay analysis</td>
+<td align="center">✅ 51</td>
+</tr>
+<tr>
 <td align="center"><strong>🔍 <a href="exa/agent-harness/">Exa</a></strong></td>
 <td>AI-Native Web Search</td>
 <td><code>cli-anything-exa</code></td>
 <td>exa-py SDK</td>
 <td align="center">✅ 40</td>
+</tr>
+<tr>
+<td align="center"><strong>📈 <a href="unrealinsights/agent-harness/">Unreal Insights</a></strong></td>
+<td>Performance Profiling</td>
+<td><code>cli-anything-unrealinsights</code></td>
+<td>Background trace sessions + engine-matched UnrealInsights build + headless export</td>
+<td align="center">✅ 50</td>
 </tr>
 <tr>
 <td align="center"><strong>☁️ <a href="cloudanalyzer/agent-harness/">CloudAnalyzer</a></strong></td>
@@ -988,11 +1052,11 @@ Each application received complete, production-ready CLI interfaces — not demo
 </tr>
 <tr>
 <td align="center" colspan="4"><strong>Total</strong></td>
-<td align="center"><strong>✅ 2,152</strong></td>
+<td align="center"><strong>✅ 2,280</strong></td>
 </tr>
 </table>
 
-> **100% pass rate** across all 2,152 tests — 1,564 unit tests + 569 end-to-end tests + 19 Node.js tests.
+> **100% pass rate** across all 2,280 tests — 1,682 unit tests + 579 end-to-end tests + 19 Node.js tests.
 
 ---
 
@@ -1031,9 +1095,12 @@ sketch         19 passed  ✅   (19 jest, Node.js)
 renderdoc      59 passed  ✅   (45 unit + 14 e2e)
 cloudcompare   88 passed  ✅   (49 unit + 39 e2e)
 openscreen    101 passed  ✅   (78 unit + 23 e2e)
+lldb           27 passed  ✅   (23 unit + 4 e2e)
+nsight-graphics 51 passed ✅   (46 unit/CLI + 5 local e2e)
+unrealinsights 50 passed  ✅   (49 unit + 1 e2e, 9 backend-gated e2e skipped)
 cloudanalyzer  14 passed  ✅   (7 unit + 7 e2e)
 ──────────────────────────────────────────────────────────────────────────────
-TOTAL        2,120 passed  ✅   100% pass rate
+TOTAL        2,280 passed  ✅   100% pass rate
 ```
 
 ---
@@ -1107,6 +1174,9 @@ cli-anything/
 ├── 🎮 godot/agent-harness/              # Godot Engine CLI (24 tests)
 ├── 🎨 sketch/agent-harness/             # Sketch CLI (19 tests, Node.js)
 ├── 🔬 renderdoc/agent-harness/          # RenderDoc CLI (59 tests)
+├── 🟩 nsight-graphics/agent-harness/    # Nsight Graphics CLI (51 tests)
+├── 🐞 lldb/agent-harness/               # LLDB CLI (27 tests)
+├── 📈 unrealinsights/agent-harness/     # Unreal Insights CLI (50 tests)
 ├── 🎬 videocaptioner/agent-harness/     # VideoCaptioner CLI (26 tests)
 ├── 🎬 openscreen/agent-harness/         # Openscreen CLI — screen recording editor (101 tests)
 ├── ☁️ cloudcompare/agent-harness/       # CloudCompare CLI (88 tests)
@@ -1212,7 +1282,7 @@ HARNESS.md is our definitive SOP for making any software agent-accessible via au
 
 It encodes proven patterns and methodologies refined through automated generation processes.
 
-The playbook distills key insights from successfully building all 16 diverse, production-ready harnesses.
+The playbook distills key insights from successfully building all 18 diverse, production-ready harnesses.
 
 ### Critical Lessons
 
@@ -1337,7 +1407,7 @@ MIT License — free to use, modify, and distribute.
 
 **CLI-Anything** — *Make any software with a codebase Agent-native.*
 
-<sub>A methodology for the age of AI agents | 16 professional software demos | 1,839 passing tests</sub>
+<sub>A methodology for the age of AI agents | 18 professional software demos | 2,280 passing tests</sub>
 
 <br>
 

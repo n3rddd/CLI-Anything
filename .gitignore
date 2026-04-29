@@ -26,25 +26,6 @@
 !/.github/PULL_REQUEST_TEMPLATE.md
 !/.github/ISSUE_TEMPLATE/
 
-# Allow examples directory
-!/examples/
-# Ignore everything inside examples first
-/examples/*
-# Then allow only the subdirs and files we need
-!/examples/README.md
-!/examples/drawio/
-!/examples/slay_the_spire_ii/
-!/examples/videocaptioner/
-# Inside each subdir, ignore everything then allow specific files
-/examples/drawio/*
-!/examples/drawio/drawio_demo.gif
-!/examples/drawio/https_handshake.png
-/examples/slay_the_spire_ii/*
-!/examples/slay_the_spire_ii/example_preview.gif
-/examples/videocaptioner/*
-!/examples/videocaptioner/videocaptioner_before.png
-!/examples/videocaptioner/videocaptioner_after.png
-
 # Step 3: Allow cli-anything-plugin, codex-skill, and skill_generation tests
 !/cli-anything-plugin/
 !/codex-skill/
@@ -98,6 +79,9 @@
 !/QGIS/
 !/n8n/
 !/obsidian/
+!/unrealinsights/
+!/nsight-graphics/
+!/lldb/
 
 # Step 5: Inside each software dir, ignore everything (including dotfiles)
 /gimp/*
@@ -180,6 +164,12 @@
 /n8n/.*
 /obsidian/*
 /obsidian/.*
+/unrealinsights/*
+/unrealinsights/.*
+/nsight-graphics/*
+/nsight-graphics/.*
+/lldb/*
+/lldb/.*
 
 # Step 6: ...except agent-harness/
 !/gimp/agent-harness/
@@ -228,6 +218,9 @@
 !/obsidian/agent-harness/
 !/safari/
 !/safari/agent-harness/
+!/unrealinsights/agent-harness/
+!/nsight-graphics/agent-harness/
+!/lldb/agent-harness/
 
 # Step 7: Ignore build artifacts within allowed dirs
 **/__pycache__/
@@ -257,6 +250,14 @@ assets/gen_typing_gif.py
 !/matrix_registry.json
 !/docs/
 /docs/*
+!/docs/PREVIEW_PROTOCOL.md
+!/docs/PREVIEW_PROGRESS.md
+!/docs/FREECAD_VIDEO_REFERENCE.md
+!/docs/PREVIEW_MECHANISM_PROGRESS.md
+!/docs/scripts/
+!/docs/scripts/**
+/docs/scripts/__pycache__/
+/docs/scripts/**/*.pyc
 !/docs/hub/
 /docs/hub/registry-dates.json
 !/notebooklm/

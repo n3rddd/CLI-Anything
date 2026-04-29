@@ -1537,18 +1537,20 @@
     .footer {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 1.05rem 1.5rem 1rem;
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 0.52rem 1rem;
     }
 
     .footer-left {
+      flex: 1 1 620px;
       font-size: 0.8rem;
       color: var(--text-tertiary);
+      line-height: 1.45;
     }
 
     .footer-left a {
@@ -1578,47 +1580,96 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      padding-top: 1rem;
+      padding-top: 0.45rem;
+      margin-top: 0.05rem;
       border-top: 1px solid var(--border-subtle);
-      margin-top: 0.5rem;
     }
 
-    .footer-analytics-link {
+    .analytics-report {
+      width: min(860px, 100%);
+      min-height: 2rem;
+      padding: 0.36rem 0.62rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.014);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.32rem 0.7rem;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Inter, sans-serif;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.026);
+      transition: border-color 0.2s ease;
+    }
+
+    :root[data-theme="light"] .analytics-report {
+      background: rgba(9,9,11,0.018);
+    }
+
+    .analytics-report:hover {
+      border-color: var(--border);
+    }
+
+    .analytics-kicker,
+    .analytics-row,
+    .analytics-key,
+    .analytics-pair {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      font-size: 0.78rem;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
+    .analytics-kicker {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--text-tertiary);
-      padding: 0.35rem 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: 999px;
     }
 
-    .footer-analytics-link svg { opacity: 0.6; flex-shrink: 0; }
-
-    .analytics-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.7rem;
+    .analytics-row {
+      gap: 0.42rem;
+      font-size: 0.74rem;
       color: var(--text-tertiary);
-      margin-left: 0.15rem;
     }
 
-    .analytics-sep { opacity: 0.4; }
-
-    .stat-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: inline-block;
+    .analytics-key {
+      font-size: 0.68rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
     }
 
-    .dot-total { background: var(--text-tertiary); }
-    .dot-human { background: var(--green); }
-    .dot-agent { background: var(--accent); }
+    .analytics-title {
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .analytics-total,
+    .analytics-pair strong {
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 650;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.018em;
+    }
+
+    .analytics-pair {
+      gap: 0.18rem;
+      color: var(--text-tertiary);
+    }
+
+    .analytics-pair .human-value,
+    .analytics-pair .agent-value {
+      color: var(--text);
+    }
+
+    .analytics-divider {
+      width: 1px;
+      height: 0.9rem;
+      background: var(--border-subtle);
+      flex: 0 0 auto;
+    }
 
     /* ── Responsive ── */
     @media (max-width: 640px) {
@@ -1671,7 +1722,11 @@
       }
       .marketplace-prelude { padding: 0.75rem 1.25rem 0; }
       .nav { padding: 0.75rem 1.25rem; }
-      .footer { padding: 1.5rem 1.25rem; flex-direction: column; align-items: flex-start; }
+      .footer { padding: 1.1rem 1.25rem; align-items: flex-start; }
+      .footer-stats { justify-content: flex-start; }
+      .analytics-report {
+        justify-content: flex-start;
+      }
       .empower-row { flex-direction: column; }
       .empower-card { margin: 0 0 1rem; padding: 1.25rem; }
       .typing-shell { padding: 0.72rem 0.78rem 0.8rem; }
@@ -1711,16 +1766,9 @@
     }
   </style>
   <script>document.documentElement.classList.add('js');</script>
-  <!-- Umami Analytics — hkuds.github.io -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="07082d05-efd3-4f85-a7a1-b426b0e8bfaa"></script>
-  <!-- Umami Analytics — clianything.cc -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="a076c661-bed1-405c-a522-813794e688b4"></script>
+  <!-- Analytics provider is configured in the footer script. -->
 </head>
 <body>
-  <!-- noscript pixel: catches non-JS visitors (AI crawlers) -->
-  <noscript>
-    <img src="https://cloud.umami.is/api/send?type=event&payload=%7B%22website%22%3A%2207082d05-efd3-4f85-a7a1-b426b0e8bfaa%22%2C%22name%22%3A%22noscript-visit%22%7D" style="position:absolute;left:-9999px" alt="" width="1" height="1">
-  </noscript>
   <!-- Nav -->
   <nav class="nav">
     <a class="nav-brand" href="#">CLI-Hub</a>
@@ -1912,17 +1960,21 @@
       Powered by <a href="https://github.com/HKUDS/CLI-Anything" target="_blank">CLI-Anything</a>
     </div>
     <div class="footer-stats">
-      <div class="footer-analytics-link" aria-label="Traffic snapshot">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        <span class="stat-dot dot-total"></span>
-        <span id="stat-total">&mdash;</span> visits
-        <span class="analytics-sep">&middot;</span>
-        <span class="stat-dot dot-human"></span>
-        <span id="stat-human">&mdash;</span> human
-        <span class="analytics-sep">&middot;</span>
-        <span class="stat-dot dot-agent"></span>
-        <span id="stat-agent">&mdash;</span> AI agent
-      </div>
+      <section class="analytics-report" aria-label="Traffic snapshot">
+        <span class="analytics-kicker">Traffic</span>
+        <span class="analytics-key">Human/Agent</span>
+        <span class="analytics-row">
+          <span class="analytics-title">Page</span>
+          <strong id="stat-total" class="analytics-total">...</strong>
+          <span class="analytics-pair"><strong id="stat-human" class="human-value">...</strong>/<strong id="stat-agent" class="agent-value">...</strong></span>
+        </span>
+        <span class="analytics-divider" aria-hidden="true"></span>
+        <span class="analytics-row">
+          <span class="analytics-title">CLI</span>
+          <strong id="stat-cli-total" class="analytics-total">...</strong>
+          <span class="analytics-pair"><strong id="stat-cli-human" class="human-value">...</strong>/<strong id="stat-cli-agent" class="agent-value">...</strong></span>
+        </span>
+      </section>
     </div>
   </footer>
 
@@ -2624,129 +2676,385 @@
 
     // ── Visitor classification: human vs AI agent ──
     (function() {
-      const AI_UA_PATTERNS = [
-        /claude/i, /anthropic/i, /openai/i, /gpt/i, /chatgpt/i,
-        /bingbot/i, /googlebot/i, /baiduspider/i, /yandexbot/i,
-        /slurp/i, /duckduckbot/i, /facebookexternalhit/i,
-        /twitterbot/i, /linkedinbot/i, /whatsapp/i, /telegrambot/i,
-        /applebot/i, /semrushbot/i, /ahrefsbot/i, /dotbot/i,
-        /petalbot/i, /mj12bot/i, /bytespider/i,
-        /headless/i, /phantom/i, /selenium/i, /puppeteer/i, /playwright/i,
-        /crawl/i, /spider/i, /bot\b/i, /scraper/i,
-        /python-requests/i, /axios/i, /node-fetch/i, /go-http/i, /curl/i, /wget/i,
-        /ccbot/i, /gptbot/i, /perplexity/i, /cohere/i,
+      const ANALYTICS_PROVIDER = 'posthog';
+      const ANALYTICS_SITE = 'clianything.cc';
+      const COUNTED_HOSTS = new Set(['clianything.cc', 'www.clianything.cc']);
+      // Fixed Umami baseline from remote main. Runtime PostHog counts are
+      // queried live and added to this.
+      const UMAMI_BASELINE_STATS = {
+        human: 7689, agent: 13434,
+        cli_hub_human: 3237, cli_hub_agent: 13124,
+      };
+      const ANALYTICS_TEST_RUN = new URLSearchParams(location.search).get('analytics_test_run') || '';
+      const POSTHOG_CONFIG = {
+        projectToken: 'phc_ovP8d5bmjpn8YZnTo7pb6rE3TikcAMgmNVt75o3Ywejz',
+        apiHost: 'https://us.i.posthog.com',
+        defaults: '2026-01-30',
+        personProfiles: 'identified_only',
+      };
+      const UMAMI_CONFIG = {
+        sendUrl: 'https://cloud.umami.is/api/send',
+        websiteId: 'a076c661-bed1-405c-a522-813794e688b4',
+      };
+      const OFFICIAL_AGENT_UA_RULES = [
+        { id: 'openai-oai-searchbot', category: 'official_ai_agent', regex: /\bOAI-SearchBot\b/i },
+        { id: 'openai-gptbot', category: 'official_ai_agent', regex: /\bGPTBot\b/i },
+        { id: 'openai-chatgpt-user', category: 'official_ai_agent', regex: /\bChatGPT-User\b/i },
+        { id: 'anthropic-claudebot', category: 'official_ai_agent', regex: /\bClaudeBot\b/i },
+        { id: 'anthropic-claude-user', category: 'official_ai_agent', regex: /\bClaude-User\b/i },
+        { id: 'anthropic-claude-searchbot', category: 'official_ai_agent', regex: /\bClaude-SearchBot\b/i },
+        { id: 'perplexity-bot', category: 'official_ai_agent', regex: /\bPerplexityBot\b/i },
+        { id: 'perplexity-user', category: 'official_ai_agent', regex: /\bPerplexity-User\b/i },
+        { id: 'google-vertex-bot', category: 'official_ai_agent', regex: /\bGoogle-CloudVertexBot\b/i },
       ];
-
-      const ua = navigator.userAgent || '';
-      const isKnownAgent = AI_UA_PATTERNS.some(p => p.test(ua));
-      const isWebdriver = navigator.webdriver === true;
+      const AGENT_TOOL_UA_RULES = [
+        { id: 'claude-code', category: 'agent_tool', regex: /\bclaude(?:[ -]?code)\b/i },
+        { id: 'codex', category: 'agent_tool', regex: /\bcodex\b/i },
+        { id: 'cursor', category: 'agent_tool', regex: /\bcursor\b/i },
+        { id: 'cline', category: 'agent_tool', regex: /\bcline\b/i },
+        { id: 'aider', category: 'agent_tool', regex: /\baider\b/i },
+        { id: 'continue', category: 'agent_tool', regex: /\bcontinue\b/i },
+        { id: 'openhands', category: 'agent_tool', regex: /\bopenhands\b/i },
+        { id: 'openclaw', category: 'agent_tool', regex: /\bopenclaw\b/i },
+        { id: 'nanobot', category: 'agent_tool', regex: /\bnanobot\b/i },
+        { id: 'browser-use', category: 'agent_tool', regex: /\bbrowser[- ]use\b/i },
+        { id: 'stagehand', category: 'agent_tool', regex: /\bstagehand\b/i },
+      ];
+      const AUTOMATION_UA_RULES = [
+        { id: 'headless-browser', category: 'automation_runtime', regex: /\bHeadlessChrome\b|\bHeadless\b/i },
+        { id: 'playwright', category: 'automation_runtime', regex: /\bPlaywright\b/i },
+        { id: 'puppeteer', category: 'automation_runtime', regex: /\bPuppeteer\b/i },
+        { id: 'selenium', category: 'automation_runtime', regex: /\bSelenium\b/i },
+        { id: 'phantomjs', category: 'automation_runtime', regex: /\bPhantomJS\b|\bPhantom\b/i },
+      ];
+      const SCRIPTED_CLIENT_UA_RULES = [
+        { id: 'python-requests', category: 'scripted_client', regex: /\bpython-requests\b/i },
+        { id: 'python-httpx', category: 'scripted_client', regex: /\bpython-httpx\b/i },
+        { id: 'axios', category: 'scripted_client', regex: /\baxios\b/i },
+        { id: 'node-fetch', category: 'scripted_client', regex: /\bnode-fetch\b/i },
+        { id: 'undici', category: 'scripted_client', regex: /\bundici\b/i },
+        { id: 'go-http-client', category: 'scripted_client', regex: /\bGo-http-client\b/i },
+        { id: 'curl', category: 'scripted_client', regex: /\bcurl\b/i },
+        { id: 'wget', category: 'scripted_client', regex: /\bwget\b/i },
+      ];
+      const CATEGORY_PRIORITY = ['official_ai_agent', 'agent_tool', 'automation_runtime', 'scripted_client'];
       let humanConfirmed = false;
+      let posthogReady = false;
+      const pendingPosthogEvents = [];
 
-      // ── Send event to BOTH Umami website IDs ──
-      // The global `umami` object only binds to one script tag, so we also
-      // POST directly to the send API for the second site.
-      const UMAMI_SEND = 'https://cloud.umami.is/api/send';
-      const DUAL_WEBSITE_IDS = [
-        '07082d05-efd3-4f85-a7a1-b426b0e8bfaa',
-        'a076c661-bed1-405c-a522-813794e688b4',
-      ];
-      function trackBoth(eventName, eventData) {
-        // POST directly to both sites — do NOT also call umami.track()
-        // because that would double-count on whichever site umami is bound to.
-        DUAL_WEBSITE_IDS.forEach(wid => {
-          const payload = {
-            type: 'event',
-            payload: {
-              website: wid,
-              hostname: location.hostname,
-              url: location.pathname,
-              name: eventName,
-              data: eventData || {},
-            },
-          };
-          fetch(UMAMI_SEND, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-            keepalive: true,
-          }).catch(() => {});
+      function isTrackedHost() {
+        return COUNTED_HOSTS.has(location.hostname);
+      }
+
+      function applyVisitorStats(stats) {
+        const formatK = (val) => {
+          const n = Number(val) || 0;
+          if (!n) return '0K';
+          return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+        };
+        const setText = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = formatK(val);
+        };
+        setText('stat-total', stats.total);
+        setText('stat-human', stats.human);
+        setText('stat-agent', stats.agent);
+        setText('stat-cli-total', stats.cli_hub_total);
+        setText('stat-cli-human', stats.cli_hub_human);
+        setText('stat-cli-agent', stats.cli_hub_agent);
+      }
+
+      function readUaBrands() {
+        const brands = navigator.userAgentData && Array.isArray(navigator.userAgentData.brands)
+          ? navigator.userAgentData.brands
+          : [];
+        return brands.map((brand) => brand.brand).join(' ');
+      }
+
+      function collectRuleSignals(ua, rules, signals) {
+        rules.forEach((rule) => {
+          if (rule.regex.test(ua)) {
+            signals.push(rule);
+          }
         });
       }
 
-      // Tag the visit type via Umami custom events
-      if (isKnownAgent || isWebdriver) {
-        trackBoth('visit-agent', { ua: ua.slice(0, 200) });
+      function collectRuntimeSignals(brands, signals) {
+        if (navigator.webdriver === true) {
+          signals.push({ id: 'webdriver', category: 'automation_runtime' });
+        }
+        if (/HeadlessChrome/i.test(brands)) {
+          signals.push({ id: 'ua-brand-headlesschrome', category: 'automation_runtime' });
+        }
+        if ('__playwright__binding__' in window || '__pwManual' in window) {
+          signals.push({ id: 'playwright-runtime', category: 'automation_runtime' });
+        }
+        if ('Cypress' in window) {
+          signals.push({ id: 'cypress-runtime', category: 'automation_runtime' });
+        }
+        if ('_phantom' in window || 'callPhantom' in window) {
+          signals.push({ id: 'phantom-runtime', category: 'automation_runtime' });
+        }
+        if ('domAutomation' in window || 'domAutomationController' in window) {
+          signals.push({ id: 'dom-automation', category: 'automation_runtime' });
+        }
       }
 
-      // Wait for Umami to load, then tag
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          if (isKnownAgent || isWebdriver) {
-            trackBoth('visit-agent', { ua: ua.slice(0, 200) });
-          }
-        }, 500);
-      });
+      function classifyVisitor() {
+        const ua = navigator.userAgent || '';
+        const brands = readUaBrands();
+        const signals = [];
+        collectRuleSignals(ua, OFFICIAL_AGENT_UA_RULES, signals);
+        collectRuleSignals(ua, AGENT_TOOL_UA_RULES, signals);
+        collectRuleSignals(ua, AUTOMATION_UA_RULES, signals);
+        collectRuleSignals(ua, SCRIPTED_CLIENT_UA_RULES, signals);
+        collectRuntimeSignals(brands, signals);
 
-      // Real human interaction detection
-      function onHumanInteraction() {
-        if (humanConfirmed) return;
+        const seen = new Set();
+        const uniqueSignals = signals.filter((signal) => {
+          if (seen.has(signal.id)) return false;
+          seen.add(signal.id);
+          return true;
+        }).sort((left, right) => CATEGORY_PRIORITY.indexOf(left.category) - CATEGORY_PRIORITY.indexOf(right.category));
+
+        const primary = uniqueSignals[0] || null;
+        const isAgent = uniqueSignals.length > 0;
+        return {
+          ua,
+          brands,
+          webdriver: navigator.webdriver === true,
+          isAgent,
+          isAutomation: !!primary && (primary.category === 'automation_runtime' || primary.category === 'scripted_client'),
+          trafficType: isAgent ? 'agent' : 'human',
+          reason: primary ? primary.id : 'human',
+          category: primary ? primary.category : 'human',
+          signals: uniqueSignals.map((signal) => signal.id),
+        };
+      }
+
+      const visitor = classifyVisitor();
+
+      function analyticsContext(eventData) {
+        const base = {
+          source: 'web',
+          site: ANALYTICS_SITE,
+          host: location.hostname,
+          visitor_type: visitor.trafficType,
+          is_agent: visitor.isAgent,
+          is_automation: visitor.isAutomation,
+          agent_category: visitor.category,
+          agent_reason: visitor.reason,
+          agent_signals: visitor.signals.slice(0, 12),
+          ua: visitor.ua.slice(0, 200),
+          ua_brands: visitor.brands.slice(0, 200),
+          webdriver: visitor.webdriver,
+        };
+        if (ANALYTICS_TEST_RUN) {
+          base.test_run = ANALYTICS_TEST_RUN;
+        }
+        return { ...base, ...eventData };
+      }
+
+      function initPosthog() {
+        if (!isTrackedHost()) return;
+        !function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split('.');2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement('script')).type='text/javascript',p.crossOrigin='anonymous',p.async=!0,p.src=s.api_host.replace('.i.posthog.com','-assets.i.posthog.com')+'/static/array.js',(r=t.getElementsByTagName('script')[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a='posthog',u.people=u.people||[],u.toString=function(t){var e='posthog';return'posthog'!==a&&(e+='.'+a),t||(e+=' (stub)'),e},u.people.toString=function(){return u.toString(1)+'.people (stub)'},o='init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug'.split(' '),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+        window.posthog.init(POSTHOG_CONFIG.projectToken, {
+          api_host: POSTHOG_CONFIG.apiHost,
+          defaults: POSTHOG_CONFIG.defaults,
+          person_profiles: POSTHOG_CONFIG.personProfiles,
+          opt_out_useragent_filter: true,
+          loaded: function(posthog) {
+            posthogReady = true;
+            while (pendingPosthogEvents.length) {
+              const queued = pendingPosthogEvents.shift();
+              posthog.capture(queued.eventName, analyticsContext(queued.eventData));
+            }
+          },
+        });
+      }
+
+      function initUmami() {
+        if (!isTrackedHost()) return;
+        const script = document.createElement('script');
+        script.defer = true;
+        script.src = 'https://cloud.umami.is/script.js';
+        script.dataset.websiteId = UMAMI_CONFIG.websiteId;
+        document.head.appendChild(script);
+      }
+
+      function trackWithPosthog(eventName, eventData) {
+        if (!isTrackedHost() || !window.posthog) return;
+        if (!posthogReady || typeof window.posthog.capture !== 'function') {
+          pendingPosthogEvents.push({ eventName, eventData });
+          return;
+        }
+        window.posthog.capture(eventName, analyticsContext(eventData));
+      }
+
+      function trackWithUmami(eventName, eventData) {
+        if (!isTrackedHost()) return;
+        const payload = {
+          type: 'event',
+          payload: {
+            website: UMAMI_CONFIG.websiteId,
+            hostname: ANALYTICS_SITE,
+            url: location.pathname,
+            name: eventName,
+            data: analyticsContext(eventData),
+          },
+        };
+        fetch(UMAMI_CONFIG.sendUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(() => {});
+      }
+
+      function trackAnalyticsEvent(eventName, eventData) {
+        if (ANALYTICS_PROVIDER === 'umami') {
+          trackWithUmami(eventName, eventData);
+          return;
+        }
+        trackWithPosthog(eventName, eventData);
+      }
+
+      if (ANALYTICS_PROVIDER === 'umami') {
+        initUmami();
+      } else {
+        initPosthog();
+      }
+
+      if (ANALYTICS_TEST_RUN) {
+        window.__CLI_ANYTHING_ANALYTICS__ = {
+          visitor: {
+            isAgent: visitor.isAgent,
+            isAutomation: visitor.isAutomation,
+            trafficType: visitor.trafficType,
+            category: visitor.category,
+            reason: visitor.reason,
+            signals: visitor.signals.slice(),
+            webdriver: visitor.webdriver,
+            ua: visitor.ua,
+          },
+        };
+      }
+
+      if (isTrackedHost() && visitor.isAgent) {
+        trackAnalyticsEvent('visit-agent', {
+          classification_source: 'initial-load',
+        });
+      }
+
+      function onHumanInteraction(event) {
+        if (humanConfirmed || !isTrackedHost() || visitor.trafficType !== 'human') return;
         humanConfirmed = true;
-        trackBoth('visit-human');
-        // Clean up listeners
-        ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach(evt => {
+        trackAnalyticsEvent('visit-human', {
+          classification_source: 'user-interaction',
+          interaction: event.type,
+        });
+        ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach((evt) => {
           document.removeEventListener(evt, onHumanInteraction);
         });
       }
 
-      ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach(evt => {
+      ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach((evt) => {
         document.addEventListener(evt, onHumanInteraction, { once: false, passive: true });
       });
 
-      // ── Fetch all-time stats from Umami Cloud API (both sites) ──
-      const UMAMI_API = 'https://api.umami.is/v1';
-      const UMAMI_KEY = 'api_idAebMhzn6z0hsUQT7BSxRuCK2GUZvRY';
-      const HKUDS_WEBSITE_ID = '07082d05-efd3-4f85-a7a1-b426b0e8bfaa';
-      const CC_WEBSITE_ID = 'a076c661-bed1-405c-a522-813794e688b4';
-      const headers = { 'Accept': 'application/json', 'x-umami-api-key': UMAMI_KEY };
+      // ── Live analytics via Cloudflare Worker proxy ──
+      // Runtime stats are fetched once per page load and rendered as compact
+      // site page-view and CLI-Hub usage counters split by human/agent.
+      const ANALYTICS_PROXY_URL = 'https://analytics.clianything.cc/';
+      const ZERO_STATS = {
+        human: 0, agent: 0,
+        cli_hub_human: 0, cli_hub_agent: 0,
+      };
 
-      async function loadVisitorStats() {
+      function normalizeStats(stats) {
+        const out = {};
+        for (const key of Object.keys(ZERO_STATS)) {
+          out[key] = Number(stats && stats[key]) || 0;
+        }
+        return out;
+      }
+
+      async function fetchWorkerStats() {
+        const response = await fetch(ANALYTICS_PROXY_URL + 'stats');
+        if (!response.ok) throw new Error('analytics stats http ' + response.status);
+        const data = await response.json();
+        return normalizeStats(data.stats || data);
+      }
+
+      async function fetchPosthogTotals() {
+        const hogql = (
+          "select " +
+          "countIf(event = 'visit-human' and properties.source = 'web' and properties.site = 'clianything.cc') as human, " +
+          "countIf(event = 'visit-agent' and properties.source = 'web' and properties.site = 'clianything.cc') as agent, " +
+          "countIf(event = 'cli-hub call' and properties.source = 'cli' and properties.channel = 'cli-hub' and properties.is_agent = false) as cli_hub_human, " +
+          "countIf(event = 'cli-hub call' and properties.source = 'cli' and properties.channel = 'cli-hub' and properties.is_agent = true) as cli_hub_agent " +
+          "from events"
+        );
+        const response = await fetch(ANALYTICS_PROXY_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: { kind: 'HogQLQuery', query: hogql } }),
+        });
+        if (!response.ok) throw new Error('posthog query http ' + response.status);
+        const data = await response.json();
+        const row = (data.results && data.results[0]) || [0, 0, 0, 0];
+        return {
+          human: Number(row[0]) || 0,
+          agent: Number(row[1]) || 0,
+          cli_hub_human: Number(row[2]) || 0,
+          cli_hub_agent: Number(row[3]) || 0,
+        };
+      }
+
+      async function fetchVisitorStats() {
         try {
-          const now = Date.now();
-          let hkudsHumanVisits = 0;
-          let ccHumanVisits = 0;
-          let ccAgentVisits = 0;
-
-          const [hkudsStatsResp, ccEventsResp] = await Promise.all([
-            fetch(`${UMAMI_API}/websites/${HKUDS_WEBSITE_ID}/stats?startAt=0&endAt=${now}`, { headers }),
-            fetch(`${UMAMI_API}/websites/${CC_WEBSITE_ID}/events/series?startAt=0&endAt=${now}&unit=year&timezone=UTC`, { headers })
-          ]);
-
-          if (hkudsStatsResp.ok) {
-            const stats = await hkudsStatsResp.json();
-            hkudsHumanVisits = stats.visits ?? 0;
-          }
-
-          if (ccEventsResp.ok) {
-            const events = await ccEventsResp.json();
-            events.forEach(e => {
-              if (e.x === 'visit-human') ccHumanVisits += e.y || 0;
-              if (e.x === 'visit-agent') ccAgentVisits += e.y || 0;
-            });
-          }
-
-          const humanCount = hkudsHumanVisits + ccHumanVisits;
-          const totalVisits = humanCount + ccAgentVisits;
-
-          document.getElementById('stat-total').textContent = totalVisits.toLocaleString();
-          document.getElementById('stat-human').textContent = humanCount.toLocaleString();
-          document.getElementById('stat-agent').textContent = ccAgentVisits.toLocaleString();
-        } catch (_) {
-          // Stats not available — leave dashes
+          return await fetchWorkerStats();
+        } catch {
+          const posthog = await fetchPosthogTotals();
+          return sumStats(UMAMI_BASELINE_STATS, posthog);
         }
       }
 
+      function sumStats(a, b) {
+        const out = {};
+        for (const key of Object.keys(ZERO_STATS)) out[key] = (a[key] || 0) + (b[key] || 0);
+        return out;
+      }
+
+      function withDerivedTotals(s) {
+        // cli-hub call is emitted once per invocation, so action events like
+        // install/launch must not be added here or usage would be double-counted.
+        return {
+          ...s,
+          total: s.human + s.agent,
+          cli_hub_total: s.cli_hub_human + s.cli_hub_agent,
+        };
+      }
+
+      function hasAnyStats(s) {
+        return Object.keys(ZERO_STATS).some((key) => (s[key] || 0) > 0);
+      }
+
+      async function refreshVisitorStats() {
+        const stats = await fetchVisitorStats();
+        if (!hasAnyStats(stats)) return false;
+        applyVisitorStats(withDerivedTotals(stats));
+        return true;
+      }
+
+      async function loadVisitorStats() {
+        await refreshVisitorStats().catch(() => false);
+      }
+
       loadVisitorStats();
-      loadGitHubStars();
+      if (typeof loadGitHubStars === 'function') {
+        loadGitHubStars();
+      }
     })();
   </script>
 </body>
