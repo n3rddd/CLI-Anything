@@ -25,3 +25,7 @@ macros:
   - name: flameshot_annotate
     path: demo/flameshot_annotate.yaml
     version: "1.0"
+  # ── Demo macros (kolourpaint) ─────────────────────────────────
+  - name: kolourpaint_annotate
+    path: demo/kolourpaint_annotate.yaml
+    version: "1.0"
