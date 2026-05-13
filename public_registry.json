@@ -339,6 +339,29 @@
           "url": "https://github.com/yanmingyu92"
         }
       ]
+    },
+    {
+      "name": "deployhq",
+      "display_name": "DeployHQ CLI",
+      "version": "0.16.3",
+      "description": "Deploy code, manage projects/servers, run and monitor deployments via the DeployHQ platform — for humans and AI agents",
+      "category": "devops",
+      "requires": "DeployHQ account (free tier available); Homebrew for the default install path",
+      "homepage": "https://www.deployhq.com",
+      "source_url": "https://github.com/deployhq/deployhq-cli",
+      "package_manager": "brew",
+      "install_strategy": "command",
+      "install_cmd": "brew install deployhq/tap/dhq",
+      "uninstall_cmd": "brew uninstall dhq",
+      "update_cmd": "brew upgrade dhq",
+      "skill_md": "https://github.com/deployhq/deployhq-cli/blob/main/skills/deployhq/SKILL.md",
+      "entry_point": "dhq",
+      "contributors": [
+        {
+          "name": "MartaKar",
+          "url": "https://github.com/MartaKar"
+        }
+      ]
     }
   ]
 }
